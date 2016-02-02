@@ -3,6 +3,11 @@ class Movie < ActiveRecord::Base
 	
 	validates :title, :released_on, presence: true
 	
-	
+	validate :must_have_valid_trailer
+	def must_have_valid_trailer
+		unless trailer.include?("<iframe")
+			errors.add(:trailer, "Must have an iframe tag")
+		end
+	end
 	
 end
